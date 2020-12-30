@@ -8,6 +8,7 @@ provide basic intellisense for SAP json files
 
 * xs-app.json
 * xs-security.json
+* manifest.json
 * .hdiconfig
 * .hdinamespace
 * .hdbtabldata

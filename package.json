@@ -3,14 +3,13 @@
 	"displayName": "SAP JSON Schemas (UN-OFFICIAL)",
 	"description": "JSON Schemas of SAP",
 	"publisher": "TheoSun",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"engines": {
 		"vscode": "^1.52.0"
 	},
 	"categories": [
 		"Snippets"
 	],
-	"activationEvents": [],
 	"icon": "icon.png",
 	"contributes": {
 		"languages": [
@@ -45,6 +44,10 @@
 			{
 				"fileMatch": "*.hdbtabledata",
 				"url": "./schemas/hdi/hdbtabledata-schema.json"
+			},
+			{
+				"fileMatch": "manifest.json",
+				"url": "./schemas/ui5/manifest-schema.json"
 			}
 		]
 	},
