@@ -10,6 +10,7 @@ provide basic intellisense for SAP json files
 * xs-security.json
 * manifest.json
 * neo-app.json
+* ui5.yaml
 * .hdiconfig
 * .hdinamespace
 * .hdbtabldata
