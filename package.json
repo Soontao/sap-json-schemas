@@ -70,5 +70,6 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Soontao/sap-json-schemas"
-	}
+	},
+	"license": "MIT"
 }
