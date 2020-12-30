@@ -11,6 +11,10 @@
 		"Snippets"
 	],
 	"icon": "icon.png",
+	"keywords": [
+		"sap",
+		"json schema"
+	],
 	"contributes": {
 		"languages": [
 			{
