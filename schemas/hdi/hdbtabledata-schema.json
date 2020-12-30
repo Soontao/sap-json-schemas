@@ -1,0 +1,228 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/HDITableData",
+  "definitions": {
+    "HDITableData": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "format_version": {
+          "type": "integer"
+        },
+        "imports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Import"
+          }
+        }
+      },
+      "required": [
+        "format_version",
+        "imports"
+      ],
+      "title": "HDITableData"
+    },
+    "Import": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "column_mappings": {
+          "description": "Connects the target table’s columns (specified in “import_settings” with the data specified in “source_data”",
+          "$ref": "#/definitions/ColumnMappings"
+        },
+        "import_settings": {
+          "description": "Specifies the target table columns and filters for the data that is inserted into the target table",
+          "$ref": "#/definitions/ImportSettings"
+        },
+        "is_collection_table": {
+          "type": "boolean",
+          "description": "Specifies that the target 'table' is a JSON collection in the SAP HANA Documentation Store (DocStore). Restrictions exist for imports to collection tables, for example, the DocStore must be enabled and running."
+        },
+        "source_data": {
+          "$ref": "#/definitions/SourceData",
+          "description": "The data source to be used for the import operation is defined in the source_data attribute; it describes the structure of the data file which is used as data source for the import as well as the type of the data file, its file name, and additional format details."
+        },
+        "target_table": {
+          "type": "string",
+          "description": "Specifies the name of the database table into which the data should be inserted. The given name must point to a database table which is also managed by SAP HDI, for example, the name cannot point to a database synonym or to a database table in another schema."
+        }
+      },
+      "required": [
+        "column_mappings",
+        "import_settings",
+        "source_data",
+        "target_table"
+      ],
+      "title": "Import"
+    },
+    "ColumnMappings": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        ".*": {
+          "anyOf": [
+            {
+              "type": "string",
+              "examples": [
+                "COL_1"
+              ]
+            },
+            {
+              "type": "integer",
+              "examples": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "constant"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "const": "function"
+                },
+                "name": {
+                  "type": "string",
+                  "enum": [
+                    "constant",
+                    "range",
+                    "decodeBase16",
+                    "decodeBase64",
+                    "getCurrentSchemaName",
+                    "extractLanguageCodeFromFileName"
+                  ]
+                },
+                "parameters": {
+                  "type": "object"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "title": "ColumnMappings"
+    },
+    "ImportSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "import_columns": {
+          "type": "array",
+          "description": "Defines the columns in the target table that will be filled with the imported data.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "include_filter": {
+          "type": "array",
+          "description": "Defines a set of rules that are used to determine what data should be imported from the source CSV file; the rules are also used to check for data collisions during the import operation.",
+          "items": {
+            "$ref": "#/definitions/Filter"
+          }
+        },
+        "exclude_filter": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Filter"
+          }
+        }
+      },
+      "required": [
+        "import_columns",
+        "include_filter"
+      ],
+      "title": "ImportSettings"
+    },
+    "Filter": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        ".*": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tableCol1",
+        "tableCol3"
+      ],
+      "title": "ExcludeFilter"
+    },
+    "SourceData": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "data_type": {
+          "type": "string",
+          "description": "The type of the data file. Supported values are: “CSV” and “PROPERTIES”",
+          "enum": [
+            "CSV",
+            "PROPERTIES"
+          ]
+        },
+        "file_name": {
+          "type": "string",
+          "description": "The name of a deployed table data source file; the file has to be deployed via the table data source plugin and follows the normal run-time naming scheme"
+        },
+        "has_header": {
+          "type": "boolean",
+          "default": false,
+          "description": "Boolean flag to indicate whether the data file contains a header"
+        },
+        "no_data_import": {
+          "type": "boolean"
+        },
+        "delete_existing_foreign_data": {
+          "type": "boolean"
+        },
+        "dialect": {
+          "type": "string",
+          "enum": [
+            "HANA",
+            "HANA-JSON"
+          ]
+        },
+        "type_config": {
+          "$ref": "#/definitions/TypeConfig",
+          "description": "The “data_type” : “CSV” specifies a source file whose contents are formatted with comma-separated values (CSV)"
+        }
+      },
+      "required": [
+        "data_type",
+        "file_name"
+      ],
+      "title": "SourceData"
+    },
+    "TypeConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "delimiter": {
+          "type": "string",
+          "description": "Character to use as record delimiter, for example, “,” (comma) or “;” (semi-colon)",
+          "default": ","
+        },
+        "line_terminator": {
+          "type": "string",
+          "description": "Character to use as line terminator, for example, \\n or \\r"
+        }
+      },
+      "required": [
+        "delimiter"
+      ],
+      "title": "TypeConfig"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/HDINameSpace",
+  "definitions": {
+    "HDINameSpace": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Use the name property in the .hdinamespace configuration file to specify the name of run-time space to map to the name of (and objects in) the file-system folder where the .hdinamespace file is located.",
+          "examples": [
+            "com.sap.hana.example"
+          ]
+        },
+        "subfolder": {
+          "type": "string",
+          "description": "Use the subfolder key in the .hdinamespace configuration file to specify if the name of the file-system folder where the .hdinamespace file is located should be appended to the name of the corresponding run-time space or ignored.",
+          "enum": [
+            "append",
+            "ignore"
+          ],
+          "default": "ignore"
+        }
+      },
+      "required": [
+        "name",
+        "subfolder"
+      ],
+      "title": "HDINameSpace"
+    }
+  }
+}

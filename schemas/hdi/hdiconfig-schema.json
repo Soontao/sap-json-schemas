@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/HDIConfig",
+  "definitions": {
+    "HDIConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "file_suffixes": {
+          "$ref": "#/definitions/FileSuffixes"
+        }
+      },
+      "required": [
+        "file_suffixes"
+      ],
+      "title": "HDIConfig"
+    },
+    "FileSuffixes": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/definitions/FileSuffix"
+        }
+      },
+      "title": "FileSuffixes"
+    },
+    "FileSuffix": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "plugin_name": {
+          "type": "string",
+          "description": "Use the plugin_name key to specify the name of the HDI build plug-in that you want to associate with a specific HDI artifact type."
+        },
+        "plugin_version": {
+          "type": "string",
+          "description": "Use the optional plugin_version key to specify the version number of the HDI build plug-in that you want to associate with a specific HDI plug-in name."
+        }
+      },
+      "required": [
+        "plugin_name"
+      ],
+      "title": "FileSuffix"
+    }
+  }
+}
