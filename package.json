@@ -3,7 +3,7 @@
 	"displayName": "SAP JSON Schemas (UN-OFFICIAL)",
 	"description": "JSON Schemas of SAP",
 	"publisher": "TheoSun",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.52.0"
 	},
@@ -12,6 +12,7 @@
 	],
 	"activationEvents": [],
 	"main": "./out/extension.js",
+	"icon": "./icon.png",
 	"contributes": {
 		"jsonValidation": [
 			{
