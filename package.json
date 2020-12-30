@@ -3,9 +3,9 @@
 	"displayName": "SAP JSON Schemas (UN-OFFICIAL)",
 	"description": "JSON Schemas of SAP",
 	"publisher": "TheoSun",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"engines": {
-		"vscode": "^1.52.0"
+		"vscode": "^1.30.0"
 	},
 	"categories": [
 		"Snippets"
@@ -48,6 +48,10 @@
 			{
 				"fileMatch": "manifest.json",
 				"url": "./schemas/ui5/manifest-schema.json"
+			},
+			{
+				"fileMatch": "neo-app.json",
+				"url": "./schemas/neo/neo-app-schema.json"
 			}
 		]
 	},

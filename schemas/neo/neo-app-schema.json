@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/NeoApp",
+  "definitions": {
+    "NeoApp": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authenticationMethod": {
+          "type": "string",
+          "enum": [
+            "saml",
+            "none"
+          ],
+          "description": "Authentication is the process of establishing and verifying the identity of a user as a prerequisite for accessing an application.",
+          "default": "none"
+        },
+        "welcomeFile": {
+          "type": "string",
+          "description": "You can either display the default Welcome file or specify a different file as Welcome file."
+        },
+        "logoutPage": {
+          "type": "string"
+        },
+        "sendWelcomeFileRedirect": {
+          "type": "boolean"
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Route"
+          }
+        },
+        "securityConstraints": {
+          "type": "array",
+          "description": "To enforce authorization for an HTML5 application, permissions can be added to application paths.",
+          "items": {
+            "$ref": "#/definitions/SecurityConstraint"
+          }
+        },
+        "cacheControl": {
+          "type": "array",
+          "description": "To improve the performance of your application you can control the Cache-Control headers, which are returned together with the static resource of your application.",
+          "items": {
+            "$ref": "#/definitions/CacheControl"
+          }
+        },
+        "headerWhiteList": {
+          "type": "array",
+          "description": "For security reasons not all HTTP headers are forwarded from the application to a backend or from the backend to the application.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [],
+      "title": "NeoApp"
+    },
+    "CacheControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "optional path of resources to be cached"
+        },
+        "directive": {
+          "type": "string",
+          "enum": [
+            "none",
+            "public",
+            "private"
+          ]
+        },
+        "maxAge": {
+          "type": "integer",
+          "description": "lifetime in seconds"
+        }
+      },
+      "required": [],
+      "title": "CacheControl"
+    },
+    "Route": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "application path to be mapped"
+        },
+        "target": {
+          "$ref": "#/definitions/Target"
+        },
+        "description": {
+          "type": "string",
+          "description": "description"
+        }
+      },
+      "required": [],
+      "title": "Route"
+    },
+    "Target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "destination",
+            "service",
+            "application"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "examples": [
+            "sapui5",
+            "userapi"
+          ]
+        },
+        "entryPath": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [],
+      "title": "Target"
+    },
+    "SecurityConstraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "permission": {
+          "type": "string",
+          "description": "permission name"
+        },
+        "description": {
+          "type": "string"
+        },
+        "protectedPaths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excludedPaths": {
+          "type": "array",
+          "description": "A security constraint applies to the directory and its sub-directories defined in the protectedPaths field, except for paths that are explicitly excluded in the excludedPaths field. The excludedPath field supports pattern matching. If a path specified ends with a slash character (/) all resources in the given directory and its sub-directories are excluded. You can also specify the path to be excluded using wildcards, for example, the path **.html excludes all resources ending with .html from the security constraint.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [],
+      "title": "SecurityConstraint"
+    }
+  }
+}
