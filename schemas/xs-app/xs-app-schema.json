@@ -1,0 +1,306 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "welcomeFile": {
+      "description": "Approuter will redirect to this URL when /(root path) is requested. This could be a file located inside the static resources folder or a resource hosted at a different location.",
+      "type": "string",
+      "minLength": 1
+    },
+    "authenticationMethod": {
+      "type": "string",
+      "description": "If set to none the UAA login roundtrip is disabled. If the property is not set and authentication is defined per route, the value is set to route by default.",
+      "enum": [
+        "none",
+        "route"
+      ]
+    },
+    "sessionTimeout": {
+      "type": "integer",
+      "description": "Used to set session timeout. The default is 15 minutes. If the SESSION_TIMEOUT environment variable is set this property will be overwritten.",
+      "minimum": 1
+    },
+    "pluginMetadataEndpoint": {
+      "type": "string",
+      "minLength": 1,
+      "format": "relative-uri"
+    },
+    "routes": {
+      "type": "array",
+      "description": "Contains all route configurations. The position of a configuration in this array is of significance for the application router in case a path matches more than one source. The first route whose source matches the path of the incoming request gets activated.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "format": "route-rules",
+        "properties": {
+          "source": {
+            "$ref": "./source-schema.json"
+          },
+          "httpMethods": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Which HTTP methods will be served by this route; the methods supported are: DELETE, GET, HEAD, OPTIONS, POST, PUT, TRACE, PATCH (no extension methods are supported). If this option is not specified, the route will serve any HTTP method.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "POST",
+                "PUT",
+                "TRACE",
+                "PATCH"
+              ]
+            }
+          },
+          "target": {
+            "type": "string",
+            "description": "Defines how the incoming request path will be rewritten for the corresponding destination or static resource.",
+            "minLength": 1,
+            "format": "relative-uri"
+          },
+          "destination": {
+            "description": "Additional options for your destinations (besides the ones in the destinations environment variable).",
+            "type": "string",
+            "minLength": 1
+          },
+          "localDir": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Folder in the working directory from which the application router will serve static content Note: localDir routes support only HEAD and GET requests; requests with any other method receive a 405 Method Not Allowed."
+          },
+          "csrfProtection": {
+            "type": "boolean",
+            "description": "Enable CSRF protection for this route. The default value is true."
+          },
+          "service": {
+            "type": "string",
+            "description": "The name of the service to which the incoming request should be forwarded."
+          },
+          "endpoint": {
+            "type": "string",
+            "description": "The name of the endpoint within the service to which the incoming request should be forwarded. Can only be used in a route containing a service attribute."
+          },
+          "authenticationType": {
+            "type": "string",
+            "description": "The value can be xsuaa, basic or none. The default one is xsuaa. When xsuaa is used the specified UAA server will handle the authentication (the user is redirected to the UAA's login form). The basic mechanism works with SAP HANA users. If none is used then no authentication is needed for this route.",
+            "enum": [
+              "xsuaa",
+              "ias",
+              "basic",
+              "none"
+            ]
+          },
+          "identityProvider": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The name of the identity provider to use if provided in route’s definition. If not provided, the route will be authenticated with the default identity provider. Note: If the authenticationType is set to Basic Authentication or None, do not define the identityProvider property."
+          },
+          "scope": {
+            "$ref": "./scopes-schema.json"
+          },
+          "replace": {
+            "type": "object",
+            "required": [
+              "pathSuffixes"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "pathSuffixes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "relative-uri"
+                }
+              },
+              "vars": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "services": {
+                "type": "object",
+                "description": "Additional options for your business services."
+              }
+            }
+          },
+          "cacheControl": {
+            "type": "string",
+            "minLength": 1,
+            "format": "valid-header-value",
+            "description": "String representing the value of the Cache-Control header, which is set on the response when serving static resources. By default the Cache-Control header is not set. It is only relevant for static resources."
+          }
+        },
+        "required": [
+          "source"
+        ]
+      }
+    },
+    "destinations": {
+      "type": "object",
+      "format": "destinations-rules",
+      "description": "Additional options for your destinations (besides the ones in the destinations environment variable).",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "logoutPath": {
+            "description": "The logout endpoint for your destination.",
+            "type": "string",
+            "minLength": 1,
+            "format": "relative-uri"
+          },
+          "logoutMethod": {
+            "description": "Could be POST, PUT, GET. The default value is POST.",
+            "type": "string",
+            "enum": [
+              "PUT",
+              "POST",
+              "GET"
+            ]
+          }
+        }
+      }
+    },
+    "services": {
+      "type": "object",
+      "format": "services-rules",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "minLength": 1
+          },
+          "logoutPath": {
+            "type": "string",
+            "minLength": 1,
+            "format": "relative-uri"
+          },
+          "logoutMethod": {
+            "type": "string",
+            "enum": [
+              "PUT",
+              "POST",
+              "GET"
+            ]
+          }
+        }
+      }
+    },
+    "logout": {
+      "type": "object",
+      "additionalProperties": false,
+      "format": "logout-rules",
+      "description": "Provides options for a Central Logout endpoint and a page to which the client to be redirected by the UAA after logout.",
+      "properties": {
+        "logoutEndpoint": {
+          "description": "In this object you can define your business application's central logout endpoint through the logoutEndpoint property.",
+          "type": "string",
+          "minLength": 1,
+          "format": "relative-uri"
+        },
+        "logoutPage": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        }
+      }
+    },
+    "login": {
+      "type": "object",
+      "description": "Contains the configuration for the endpoint of the application router which will be used by the UAA during the OAuth2 authentication routine. By default this endpoint is /login/callback.",
+      "additionalProperties": false,
+      "properties": {
+        "callbackEndpoint": {
+          "type": "string",
+          "minLength": 1,
+          "format": "relative-uri"
+        }
+      },
+      "required": [
+        "callbackEndpoint"
+      ]
+    },
+    "whitelistService": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "minLength": 1,
+          "format": "relative-uri"
+        }
+      },
+      "required": [
+        "endpoint"
+      ]
+    },
+    "compression": {
+      "type": "object",
+      "description": "Configuration regarding compressing resources before responding to the client. If the COMPRESSION environment variable is set it will overwrite existing values.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "minSize": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "websockets": {
+      "type": "object",
+      "description": "Options for the web socket communication.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled"
+      ]
+    },
+    "errorPage": {
+      "type": "array",
+      "additionalProperties": false,
+      "description": "Optional configuration to set-up a custom error pages whenever the approuter encouters an error.",
+      "items": {
+        "type": "object",
+        "required": [
+          "status",
+          "file"
+        ],
+        "properties": {
+          "status": {
+            "type": [
+              "integer",
+              "array"
+            ],
+            "minimum": 1,
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "file": {
+            "type": "string",
+            "minLength": 1,
+            "format": "local-file"
+          }
+        }
+      }
+    }
+  },
+  "required": []
+}

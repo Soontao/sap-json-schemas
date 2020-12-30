@@ -1,0 +1,24 @@
+{
+  "type": [
+    "string",
+    "object"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "Describes a regular expression that matches the incoming request URL. Note: A request matches a particular route if its path contains the given pattern. To ensure the RegExp matches the complete path, use the following form: ^$`. Note: Be aware that the RegExp is applied to on the full URL including query parameters.",
+  "minLength": 1,
+  "format": "regex",
+  "additionalProperties": false,
+  "properties": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "format": "regex"
+    },
+    "matchCase": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "path"
+  ]
+}
