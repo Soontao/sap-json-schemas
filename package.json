@@ -2,6 +2,7 @@
 	"name": "sap-json-schemas",
 	"displayName": "SAP JSON Schemas (UN-OFFICIAL)",
 	"description": "JSON Schemas of SAP",
+	"publisher": "Theo Sun",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.52.0"
