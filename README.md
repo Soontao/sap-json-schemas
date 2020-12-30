@@ -1,6 +1,8 @@
 # SAP JSON SCHEMAS (UN-OFFICIAL)
 
-## Schemas
+provide basic intellisense for SAP json files
+
+## Support
 
 * xs-app.json
 * xs-security.json
