@@ -2,7 +2,14 @@
 
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/TheoSun.sap-json-schemas?label=vscode%20marketplace)](https://marketplace.visualstudio.com/items?itemName=TheoSun.sap-json-schemas)
 
-provide basic intellisense for SAP json files
+Provide basic `intellisense` for SAP json/yaml configuration files.
+
+## Preview
+
+> with `xs-app.json`
+
+![](https://res.cloudinary.com/digf90pwi/video/upload/ac_none,q_49/v1609735532/2021-01-04_12-43-13_pyorqu.gif)
+
 
 ## Support
 
