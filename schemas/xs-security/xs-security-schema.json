@@ -143,9 +143,7 @@
           }
         }
       },
-      "required": [
-    
-      ],
+      "required": [],
       "title": "Oauth2Configuration"
     },
     "RoleTemplate": {
@@ -171,7 +169,27 @@
           "type": "array",
           "description": "One or more attributes to apply to the built role",
           "items": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "attribute name"
+                  },
+                  "default-values": {
+                    "type": "array",
+                    "description": "default values for attribute",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
           }
         }
       },
