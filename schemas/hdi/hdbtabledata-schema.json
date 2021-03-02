@@ -154,11 +154,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "tableCol1",
-        "tableCol3"
-      ],
-      "title": "ExcludeFilter"
+      "title": "Filter"
     },
     "SourceData": {
       "type": "object",
