@@ -10,7 +10,6 @@ Provide basic `intellisense` for SAP json/yaml configuration files.
 
 ![](https://res.cloudinary.com/digf90pwi/video/upload/ac_none,q_49/v1609735532/2021-01-04_12-43-13_pyorqu.gif)
 
-
 ## Support
 
 * xs-app.json
@@ -21,3 +20,10 @@ Provide basic `intellisense` for SAP json/yaml configuration files.
 * .hdiconfig
 * .hdinamespace
 * .hdbtabldata
+
+## Highlight Support
+
+> provide basic highlight support
+
+* .hdbtable
+* .hdbview

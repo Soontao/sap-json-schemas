@@ -1,95 +1,100 @@
 {
-	"name": "sap-json-schemas",
-	"displayName": "SAP JSON Schemas (UN-OFFICIAL)",
-	"description": "JSON Schemas of SAP",
-	"publisher": "TheoSun",
-	"version": "0.1.2",
-	"engines": {
-		"vscode": "^1.30.0"
-	},
-	"categories": [
-		"Snippets"
-	],
-	"icon": "icon.png",
-	"keywords": [
-		"sap",
-		"json schema"
-	],
-	"extensionDependencies": [
-		"redhat.vscode-yaml"
-	],
-	"contributes": {
-		"languages": [
-			{
-				"filenames": [
-					".hdiconfig",
-					".hdinamespace"
-				],
-				"extensions": [
-					"hdbtabledata"
-				],
-				"id": "json"
-			}
-		],
-		"jsonValidation": [
-			{
-				"fileMatch": "xs-app.json",
-				"url": "./schemas/xs-app/xs-app-schema.json"
-			},
-			{
-				"fileMatch": "xs-security.json",
-				"url": "./schemas/xs-security/xs-security-schema.json"
-			},
-			{
-				"fileMatch": ".hdiconfig",
-				"url": "./schemas/hdi/hdiconfig-schema.json"
-			},
-			{
-				"fileMatch": ".hdinamespace",
-				"url": "./schemas/hdi/hdinamespace-schema.json"
-			},
-			{
-				"fileMatch": "*.hdbtabledata",
-				"url": "./schemas/hdi/hdbtabledata-schema.json"
-			},
-			{
-				"fileMatch": "manifest.json",
-				"url": "./schemas/ui5/manifest-schema.json"
-			},
-			{
-				"fileMatch": "neo-app.json",
-				"url": "./schemas/neo/neo-app-schema.json"
-			}
-		],
-		"yamlValidation": [
-			{
-				"fileMatch": [
-					"ui5.yaml",
-					"ui5.yml"
-				],
-				"url": "./schemas/ui5/ui5-yaml-schema.json"
-			}
-		]
-	},
-	"scripts": {
-		"lint": "eslint src --ext ts"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.4",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.30.0",
-		"@typescript-eslint/eslint-plugin": "^4.9.0",
-		"@typescript-eslint/parser": "^4.9.0",
-		"eslint": "^7.15.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.1.3",
-		"typescript": "^4.1.2",
-		"vscode-test": "^1.4.1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Soontao/sap-json-schemas"
-	},
-	"license": "MIT"
+  "name": "sap-json-schemas",
+  "displayName": "SAP JSON Schemas (UN-OFFICIAL)",
+  "description": "JSON Schemas of SAP",
+  "publisher": "TheoSun",
+  "version": "0.1.3",
+  "engines": {
+    "vscode": "^1.30.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "icon": "icon.png",
+  "keywords": [
+    "sap",
+    "json schema"
+  ],
+  "extensionDependencies": [
+    "redhat.vscode-yaml"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "filenames": [
+          ".hdiconfig",
+          ".hdinamespace"
+        ],
+        "extensions": [
+          ".hdbtabledata"
+        ],
+        "id": "json"
+      },
+      {
+        "extensions": [
+          ".hdbview",
+          ".hdbtable"
+        ],
+        "id": "sql"
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": "xs-app.json",
+        "url": "./schemas/xs-app/xs-app-schema.json"
+      },
+      {
+        "fileMatch": "xs-security.json",
+        "url": "./schemas/xs-security/xs-security-schema.json"
+      },
+      {
+        "fileMatch": ".hdiconfig",
+        "url": "./schemas/hdi/hdiconfig-schema.json"
+      },
+      {
+        "fileMatch": ".hdinamespace",
+        "url": "./schemas/hdi/hdinamespace-schema.json"
+      },
+      {
+        "fileMatch": "*.hdbtabledata",
+        "url": "./schemas/hdi/hdbtabledata-schema.json"
+      },
+      {
+        "fileMatch": "manifest.json",
+        "url": "./schemas/ui5/manifest-schema.json"
+      },
+      {
+        "fileMatch": "neo-app.json",
+        "url": "./schemas/neo/neo-app-schema.json"
+      }
+    ],
+    "yamlValidation": [
+      {
+        "fileMatch": [
+          "ui5.yaml",
+          "ui5.yml"
+        ],
+        "url": "./schemas/ui5/ui5-yaml-schema.json"
+      }
+    ]
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.55.0",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "eslint": "^7.23.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.3.2",
+    "typescript": "^4.2.3",
+    "vscode-test": "^1.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Soontao/sap-json-schemas"
+  },
+  "license": "MIT"
 }
