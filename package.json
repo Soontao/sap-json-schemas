@@ -3,7 +3,7 @@
   "displayName": "SAP JSON Schemas (UN-OFFICIAL)",
   "description": "JSON Schemas of SAP",
   "publisher": "TheoSun",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "engines": {
     "vscode": "^1.30.0"
   },
@@ -33,7 +33,8 @@
       {
         "extensions": [
           ".hdbview",
-          ".hdbtable"
+          ".hdbtable",
+          ".hdbprocedure"
         ],
         "id": "sql"
       }
