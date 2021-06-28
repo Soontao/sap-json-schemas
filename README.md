@@ -25,5 +25,9 @@ Provide basic `intellisense` for SAP json/yaml configuration files.
 
 > provide basic highlight support
 
-* .hdbtable
 * .hdbview
+* .hdbtable
+* .hdbprocedure
+* .hdbconstraint
+* .hdbindex
+* .hdbsequence
