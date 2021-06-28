@@ -20,6 +20,9 @@ Provide basic `intellisense` for SAP json/yaml configuration files.
 * .hdiconfig
 * .hdinamespace
 * .hdbtabldata
+* .hdbsynonym
+* .hdbsynonymconfig
+
 
 ## Highlight Support
 

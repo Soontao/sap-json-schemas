@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Synonyms",
+  "definitions": {
+    "Synonyms": {
+      "type": "object",
+      "additionalProperties": {
+        "description": "the synonyms object name",
+        "type": "object",
+        "properties": {
+          "target": {
+            "$ref": "#/definitions/Target"
+          }
+        }
+      },
+      "required": [],
+      "title": "Synonyms"
+    },
+    "Target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "database": {
+          "type": "string",
+          "description": "optional (cross-database access)"
+        },
+        "remote": {
+          "type": "string"
+        },
+        "logical_schema": {
+          "type": "string"
+        },
+        "schema": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string",
+          "description": "the ref table name"
+        },
+        "revalidate": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "object"
+      ],
+      "title": "target config object"
+    }
+  }
+}

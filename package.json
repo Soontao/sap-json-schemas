@@ -3,7 +3,7 @@
   "displayName": "SAP JSON Schemas (UN-OFFICIAL)",
   "description": "JSON Schemas of SAP",
   "publisher": "TheoSun",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "engines": {
     "vscode": "^1.30.0"
   },
@@ -26,7 +26,9 @@
           ".hdinamespace"
         ],
         "extensions": [
-          ".hdbtabledata"
+          ".hdbtabledata",
+          ".hdbsynonym",
+          ".hdbsynonymconfig"
         ],
         "id": "json"
       },
@@ -62,6 +64,14 @@
       {
         "fileMatch": "*.hdbtabledata",
         "url": "./schemas/hdi/hdbtabledata-schema.json"
+      },
+      {
+        "fileMatch": "*.hdbsynonym",
+        "url": "./schemas/hdb/hdbsynonym-schema.json"
+      },
+      {
+        "fileMatch": "*.hdbsynonymconfig",
+        "url": "./schemas/hdb/hdbsynonym-schema.json"
       },
       {
         "fileMatch": "manifest.json",
