@@ -74,11 +74,13 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The name of the attribute with a value to apply when building the role template"
+          "description": "The name of the attribute with a value to apply when building the role template",
+          "maxLength": 64
         },
         "description": {
           "type": "string",
-          "description": "A short summary of the attribute defined"
+          "description": "A short summary of the attribute defined",
+          "maxLength": 1000
         },
         "valueType": {
           "type": "string",
@@ -88,6 +90,11 @@
             "int",
             "date"
           ]
+        },
+        "valueRequired": {
+          "type": "boolean",
+          "description": "If the value is set to 'false' the administrator can leave the attribute value blank in the roles management UI. If the attribute is used to restrict instance based authorizations a blank value means 'no restriction for this attribute' giving full authorization. If the value is 'true' the administrator needs to provide a value for the attribute (This was already the default before the property existed).",
+          "default": true
         }
       },
       "required": [
@@ -99,6 +106,8 @@
     },
     "Oauth2Configuration": {
       "type": "object",
+      "required": [],
+      "title": "OAuth2 Configuration",
       "additionalProperties": false,
       "properties": {
         "token-validity": {
@@ -141,98 +150,124 @@
           "items": {
             "type": "string"
           }
-        }
-      },
-      "required": [],
-      "title": "Oauth2Configuration"
-    },
-    "RoleTemplate": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the role to build from the role template"
         },
-        "description": {
-          "type": "string",
-          "description": "A short summary of the role to build"
-        },
-        "scope-references": {
+        "grant-types": {
           "type": "array",
-          "description": "The security (authorization) scope to apply to the application-related role",
+          "description": "Array of allowed grant types",
           "items": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "password",
+              "authorization_code",
+              "client_credentials",
+              "refresh_token",
+              "urn:ietf:params:oauth:grant-type:saml2-bearer",
+              "urn:ietf:params:oauth:grant-type:jwt-bearer",
+              "client_x509"
+            ]
           }
         },
-        "attribute-references": {
+        "credential-types": {
           "type": "array",
-          "description": "One or more attributes to apply to the built role",
+          "description": "Array of allowed credential types",
           "items": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "attribute name"
-                  },
-                  "default-values": {
-                    "type": "array",
-                    "description": "default values for attribute",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
+            "type": "string",
+            "enum": [
+              "instance-secret",
+              "binding-secret",
+              "x509"
             ]
           }
         }
+      }
+    }
+  },
+  "RoleTemplate": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The name of the role to build from the role template"
       },
-      "required": [
-        "name",
-        "scope-references"
-      ],
-      "title": "RoleTemplate"
-    },
-    "Scope": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Name of the local scope, which must be prefixed with the name of the XS advanced application defined in the property 'xsappname'. It is highly recommended to prefix the scope name with the variable $XSAPPNAME in order to reference the element 'xsappname' of the xs-security.json file. The 'name' can contain up to 193 characters and must not start with a period '.' (dot), and cannot include any characters include in the so-called 'blacklist'. Permitted characters include: 'a'-'z', 'A'-'Z', '0'-'9', '_', '-', '\\', '/', ':', and '.'",
-          "examples": [
-            "$XSAPPNAME.EXAMPLE_SCOPE"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "maxLength": 1000,
-          "description": "A short summary of the specified scope; 'description' must not be longer than 1000 characters."
-        },
-        "granted-apps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "grant-as-authority-to-apps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+      "description": {
+        "type": "string",
+        "description": "A short summary of the role to build"
+      },
+      "scope-references": {
+        "type": "array",
+        "description": "The security (authorization) scope to apply to the application-related role",
+        "items": {
+          "type": "string"
         }
       },
-      "required": [
-        "description",
-        "name"
-      ],
-      "title": "Scope"
-    }
+      "attribute-references": {
+        "type": "array",
+        "description": "One or more attributes to apply to the built role",
+        "items": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "attribute name"
+                },
+                "default-values": {
+                  "type": "array",
+                  "description": "default values for attribute",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "required": [
+      "name",
+      "scope-references"
+    ],
+    "title": "RoleTemplate"
+  },
+  "Scope": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Name of the local scope, which must be prefixed with the name of the XS advanced application defined in the property 'xsappname'. It is highly recommended to prefix the scope name with the variable $XSAPPNAME in order to reference the element 'xsappname' of the xs-security.json file. The 'name' can contain up to 193 characters and must not start with a period '.' (dot), and cannot include any characters include in the so-called 'blacklist'. Permitted characters include: 'a'-'z', 'A'-'Z', '0'-'9', '_', '-', '\\', '/', ':', and '.'",
+        "examples": [
+          "$XSAPPNAME.EXAMPLE_SCOPE"
+        ]
+      },
+      "description": {
+        "type": "string",
+        "maxLength": 1000,
+        "description": "A short summary of the specified scope; 'description' must not be longer than 1000 characters."
+      },
+      "granted-apps": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "grant-as-authority-to-apps": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "description",
+      "name"
+    ],
+    "title": "Scope"
   }
 }
