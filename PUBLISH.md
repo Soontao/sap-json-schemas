@@ -2,6 +2,9 @@
 
 ## [VSCode - Publishing Extensions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
 
+
+## [Azure Organization](https://soontao.visualstudio.com/)
+
 ## Command
 
 ```bash
