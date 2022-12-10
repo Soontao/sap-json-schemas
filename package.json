@@ -92,7 +92,9 @@
       }
     ]
   },
-  "scripts": {},
+  "scripts": {
+    "release": "npx standard-release --no-verify"
+  },
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/mocha": "^8.2.3",
